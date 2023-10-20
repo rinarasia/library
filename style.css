@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    border: 10px solid black;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.sidebar {
+    background-color: red;
+    border: 1px solid white;
+}
+
+.main {
+    background-color: aqua;
+    border: 1px solid white;
+    display: grid;
+    grid-template-rows: 1fr 13fr 1fr;
+}
+
+.header {
+    background-color: blue;
+    border: 1px solid white;
+}
+
+.bookshelf {
+    background-color: green;
+    border: 1px solid white;
+}
+
+.footer {
+    background-color: orange;
+    border: 1px solid white;
+}
