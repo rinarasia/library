@@ -4,21 +4,41 @@
 }
 
 .container {
+    width: 90vw;
+    height: 90vh;
     border: 10px solid black;
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
 }
+
+/* SIDEBAR TEXT AND LINKS */
 
 .sidebar {
     background-color: red;
     border: 1px solid white;
 }
 
+.nav {
+    padding: 15px;    
+}
+
+.nav ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.owned li, .saved li {
+    padding-top: 10px;
+}
+
+/* HEADER, BOOKSHELF, AND FOOTER */
+
 .main {
     background-color: aqua;
     border: 1px solid white;
     display: grid;
-    grid-template-rows: 1fr 13fr 1fr;
+    grid-template-rows: 1fr 10fr 1fr;
 }
 
 .header {
