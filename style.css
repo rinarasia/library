@@ -83,7 +83,7 @@
     text-shadow: none;
   }
   
-  button {
+  form button {
     color: black;
     background: linear-gradient(tan, brown);
     padding: 5px 10px;
@@ -131,8 +131,8 @@
       blue 0px calc(var(--spacing) * 5)
     );*/
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-rows: repeat(6, 1fr);
     gap: 1rem;
     overflow: auto;
     place-items: center;
@@ -142,7 +142,6 @@
 
 .book {
     margin-top: 50px;
-    margin-left: 15px;
     width: 4rem;
     height: 6rem;
     text-align: center;
@@ -157,10 +156,51 @@
     padding: 10px 5px;
 
     transition: all .2s ease-in-out; 
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5px;
 }
 
 .book:hover {
-    transform: scale(1.5) skew(5deg, 0deg);
+    transform: scale(1.5) skew(3deg, 0deg);
+}
+
+.bookCard {
+    text-align: center;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.options button {
+    background: linear-gradient(bisque, rgb(82, 36, 36));
+
+}
+.bookCard .options, .bookCard .read {
+    font-size: 12px;
+}
+
+.bookCard .read {
+    background-color:bisque;
+    color:#852222;
+    padding: 5px;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-top: 10px;
+    text-shadow: none;
+}
+
+.bookCard .delete {
+    border-radius: 30px;
+    padding: 5px 8px;
+    font-size: 12px;
 }
 
 .footer {
