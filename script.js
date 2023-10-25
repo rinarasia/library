@@ -22,7 +22,8 @@ window.onload = function () {
      bookTitle = $title.value;
      bookAuthor = $author.value;
      bookPages = $pages.value;
-
+     bookRead = $read.checked;
+    
     // check if book exists in library
     const isFound = myLibrary.find((x) => x.title.toLowerCase() === bookTitle.toLowerCase());
 
@@ -116,8 +117,14 @@ window.onload = function () {
     //--------------CREATED READ BUTTON----------------------
 
     const readBtn = document.createElement("button");
-    readBtn.classList.add('read');
-    readBtn.innerHTML = "Read";
+    
+    if(bookRead === false) {
+      readBtn.classList.add('unread');
+      readBtn.innerHTML = "Unread";
+    } else {
+      readBtn.classList.add('read');
+      readBtn.innerHTML = "Read";
+    }
 
     bookCard.appendChild(readBtn);
 
