@@ -9,8 +9,6 @@ window.onload = function () {
   const book = document.querySelectorAll('.book');
   const $displayBook = document.querySelector('#displayBook');
 
-  /*const deleteBtn = document.querySelectorAll('.delete');*/
-
   let bookTitle;
   let bookAuthor;
   let bookPages;
@@ -24,8 +22,6 @@ window.onload = function () {
      bookTitle = $title.value;
      bookAuthor = $author.value;
      bookPages = $pages.value;
-
-    // show new book on bookshelf
 
     // check if book exists in library
     const isFound = myLibrary.find((x) => x.title.toLowerCase() === bookTitle.toLowerCase());
@@ -69,7 +65,7 @@ window.onload = function () {
       let thisBookCard = e.target.parentElement;
       bookshelf.removeChild(thisBookCard);
     });
-  }
+  }  
 
   function createBookCover() {
     //----------------CREATE NEW BOOK---------------------
@@ -116,7 +112,7 @@ window.onload = function () {
     bookCard.appendChild(newBook);
   }
 
-  function createReadButton() {
+  function createReadButton(book) {
     //--------------CREATED READ BUTTON----------------------
 
     const readBtn = document.createElement("button");
@@ -124,6 +120,23 @@ window.onload = function () {
     readBtn.innerHTML = "Read";
 
     bookCard.appendChild(readBtn);
+
+    readBtn.addEventListener("click", (e) => {
+      console.log("I am reading " + book.title);
+      readBtn.classList.toggle("read");
+      readBtn.classList.toggle("unread");
+      setReadBtn(readBtn);
+    });
+ 
+  }
+
+  function setReadBtn(readBtn) {
+    let text = readBtn;
+    if (text.innerHTML === "Read") {
+      text.innerHTML = "Unread";
+    } else {
+      text.innerHTML = "Read";
+    }
   }
 
   function createBook(book) {
@@ -136,7 +149,7 @@ window.onload = function () {
 
     addDeleteFunction(book, index);
     createBookCover();
-    createReadButton();
+    createReadButton(book);
 
     //--------------ADD BOOKCARD TO BOOKSHELF----------------
     // add book to bookshelf
@@ -144,10 +157,10 @@ window.onload = function () {
   }
 
   function logBookArray() {
-  myLibrary.forEach(book => {
-    console.log(book);
-  })
-}
+    myLibrary.forEach(book => {
+      console.log(book);
+    })
+  }
 }
 
 const myLibrary = [];

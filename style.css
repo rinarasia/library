@@ -199,8 +199,19 @@
 }
 
 .bookCard .read {
-    background: linear-gradient(bisque, rgb(82, 36, 36));
-    color:#852222;
+    background: linear-gradient(bisque, rgb(44, 138, 21));
+    color:black;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px 8px;
+    font-size: 12px;
+    text-shadow: none;
+    border: none;
+}
+
+.bookCard .unread {
+    background: linear-gradient(bisque, red);;
+    color: black;
     margin-top: 10px;
     border-radius: 10px;
     padding: 5px 8px;
