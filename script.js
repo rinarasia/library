@@ -1,82 +1,148 @@
 window.onload = function () {
-  const $title = document.querySelector('#title');
-  const $author = document.querySelector('#author');
-  const $pages = document.querySelector('#pages');
-  const $read = document.querySelector('#read');
+  const $title = document.querySelector("#title");
+  const $author = document.querySelector("#author");
+  const $pages = document.querySelector("#pages");
+  const $read = document.querySelector("#read");
 
-  const bookshelf = document.getElementById('bookshelf');
+  const bookshelf = document.getElementById("bookshelf");
 
-  const book = document.querySelectorAll('.book');
-  const $displayBook = document.querySelector('#displayBook');
+  const book = document.querySelectorAll(".book");
+  const $displayBook = document.querySelector("#displayBook");
 
   let bookTitle;
   let bookAuthor;
   let bookPages;
+  let bookRead;
 
-  const $form = document.querySelector("form").addEventListener("submit", (e) => {
-    e.preventDefault();
+  function displayBooks() {
+    myLibrary.forEach((book) => {
+      bookTitle = book.title;
+      bookAuthor = book.author;
+      bookPages = book.pages;
+      bookRead = book.read;
+      createBook(book);
+      /*
+      // Filter books unread
+      if (bookRead === true) {
+        createBook(book);
+      }*/
+    });
+  }
 
-    // save new book
-    const addedBook = new Book($title.value, $author.value, $pages.value, $read.checked);
+  displayBooks();
 
-     bookTitle = $title.value;
-     bookAuthor = $author.value;
-     bookPages = $pages.value;
-     bookRead = $read.checked;
-    
-    // check if book exists in library
-    const isFound = myLibrary.find((x) => x.title.toLowerCase() === bookTitle.toLowerCase());
+  function sortAlpha() {
+    myLibrary.sort(function (a, b) {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
+  }
+  
+  function sortReverseAlpha() {
+    myLibrary.sort(function (a, b) {
+        if (a.title > b.title) {
+          return -1;
+        }
+        if (a.title < b.title) {
+          return 1;
+        }
+        return 0;
+      });
+  }
+  
+  // SORT LIBRARY ARRAY----------------------------------------------
+  let sort = document.getElementById("sort");
 
-    console.log(isFound);
-
-    if(isFound) {
-      console.log("Book was found!!!");
-    } else {
-      addBookToLibrary(addedBook);
-      console.log("I added the book");
-      createBook(addedBook);
-      logBookArray();
+  sort.addEventListener("change", function () {
+    if (sort.value == "aToZ") {
+      sortAlpha();      
+    } else if (sort.value == "zToA") {
+      console.log("No sort Z to A");
+      sortReverseAlpha();
+      
+    } else if (sort.value == "dateAdded") {
+      console.log("hello date added was today");
+      myLibrary.sort();
     }
-
+    removeAllBooks();
+    displayBooks();
+    console.log(myLibrary);
   });
 
-  // find index of book
-  function findIndex(book) {
-    return myLibrary.indexOf(book);
-  }
+  // FORM CONTROLS--------------------------------------------------------
+  const $form = document
+    .querySelector("form")
+    .addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // save new book
+      const addedBook = new Book(
+        $title.value,
+        $author.value,
+        $pages.value,
+        $read.checked
+      );
+
+      bookTitle = $title.value;
+      bookAuthor = $author.value;
+      bookPages = $pages.value;
+      bookRead = $read.value;
+
+      // check if book exists in library
+      const isFound = myLibrary.find(
+        (x) => x.title.toLowerCase() === bookTitle.toLowerCase()
+      );
+
+      console.log(isFound);
+
+      if (isFound) {
+        console.log("Book was found!!!");
+      } else {
+        addBookToLibrary(addedBook);
+        console.log("I added the book");
+        createBook(addedBook);
+        logBookArray();
+      }
+    });
 
   function createDeleteBtn() {
     // create delete button
     deleteBtn = document.createElement("button");
-    deleteBtn.classList.add('delete');
-    const x = document.createTextNode('x');
+    deleteBtn.classList.add("delete");
+    const x = document.createTextNode("x");
     deleteBtn.appendChild(x);
 
     // add delete button to bookshelf
     bookCard.appendChild(deleteBtn);
   }
 
-  function addDeleteFunction(book, index) {
+  function addDeleteFunction(book) {
     // add delete function
     deleteBtn.addEventListener("click", (e) => {
       console.log("Are you sure you want to delete " + myLibrary.indexOf(book));
-
+      let index = myLibrary.indexOf(book);
       myLibrary.splice(index, 1);
 
       let thisBookCard = e.target.parentElement;
       bookshelf.removeChild(thisBookCard);
+      console.log(myLibrary);
     });
-  }  
+  }
 
   function createBookCover() {
     //----------------CREATE NEW BOOK---------------------
 
     newBook = document.createElement("div");
-    newBook.classList.add('book');
+    newBook.classList.add("book");
 
     // BOOK TITLE
     let title = document.createElement("h4");
-    title.classList.add('title');
+    title.classList.add("title");
     newBook.appendChild(title);
 
     // BOOK TITLE TEXT
@@ -88,7 +154,7 @@ window.onload = function () {
     // Add author to book ---------------------------------
     // create span author inside book
     let spanAuthor = document.createElement("span");
-    spanAuthor.classList.add('author');
+    spanAuthor.classList.add("author");
     newBook.appendChild(spanAuthor);
 
     // create author text for book
@@ -100,7 +166,7 @@ window.onload = function () {
     // Add pages to book ---------------------------------
     // create span pages inside book
     let spanPages = document.createElement("span");
-    spanPages.classList.add('pages');
+    spanPages.classList.add("pages");
     newBook.appendChild(spanPages);
 
     // create pages text for book
@@ -117,12 +183,13 @@ window.onload = function () {
     //--------------CREATED READ BUTTON----------------------
 
     const readBtn = document.createElement("button");
-    
-    if(bookRead === false) {
-      readBtn.classList.add('unread');
+    // set initial book status
+    if (bookRead === false) {
+      readBtn.classList.add("unread");
       readBtn.innerHTML = "Unread";
+      bookRead = false;
     } else {
-      readBtn.classList.add('read');
+      readBtn.classList.add("read");
       readBtn.innerHTML = "Read";
     }
 
@@ -130,14 +197,20 @@ window.onload = function () {
 
     readBtn.addEventListener("click", (e) => {
       console.log("I am reading " + book.title);
+      if (bookRead === false) {
+        bookRead = true;
+        console.log(bookRead);
+      } else if (bookRead == true) {
+        bookRead = false;
+        console.log(bookRead);
+      }
       readBtn.classList.toggle("read");
       readBtn.classList.toggle("unread");
-      setReadBtn(readBtn);
+      setReadStatus(readBtn);
     });
- 
   }
 
-  function setReadBtn(readBtn) {
+  function setReadStatus(readBtn) {
     let text = readBtn;
     if (text.innerHTML === "Read") {
       text.innerHTML = "Unread";
@@ -148,27 +221,20 @@ window.onload = function () {
 
   function createBook(book) {
     bookCard = document.createElement("div");
-    bookCard.classList.add('bookCard');
+    bookCard.classList.add("bookCard");
 
     createDeleteBtn();
+    addDeleteFunction(book);
 
-    let index = myLibrary.indexOf(book);
-
-    addDeleteFunction(book, index);
     createBookCover();
+
     createReadButton(book);
 
     //--------------ADD BOOKCARD TO BOOKSHELF----------------
     // add book to bookshelf
-    bookshelf.append(bookCard);
+    bookshelf.appendChild(bookCard);
   }
-
-  function logBookArray() {
-    myLibrary.forEach(book => {
-      console.log(book);
-    })
-  }
-}
+};
 
 const myLibrary = [];
 
@@ -178,97 +244,28 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
   this.info = function () {
-    return title + ' by ' + author + ', ' + pages + ' Pages' + read;
-  }
-
+    return title + " by " + author + ", " + pages + " Pages" + read;
+  };
 }
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-const Tolkien = new Book('Tolkien', 'J.R.R.', '1342', true);
-
-console.log(Tolkien.info());
-
-addBookToLibrary(Tolkien);
-/*
-
-const bookOne = new Book('Book1', 'J.R.R.', '1342', true);
-const bookTwo = new Book('Book2', 'J.R.R.', '1342', true);
-const bookThree = new Book('Book3', 'J.R.R.', '1342', true);
+const Tolkien = new Book("Tolkien", "J.R.R.", "1342", false);
+// add default books to library
+const bookOne = new Book("Frog", "J.R.R.", "1342", false);
+const bookTwo = new Book("Apple", "J.R.R.", "1342", true);
+const bookThree = new Book("Cats", "J.R.R.", "1342", false);
 
 addBookToLibrary(bookOne);
 addBookToLibrary(bookTwo);
 addBookToLibrary(bookThree);
-console.log(myLibrary[0].title);
-*/
+addBookToLibrary(Tolkien);
 
-
-
-/*
-
-    
-      // get bookshelf
-    
-      // create new book
-      const newBook = document.createElement("div");
-      newBook.classList.add('book');
-    
-      // add book to bookshelf
-      bookshelf.append(newBook);
-
-      */
-
-
-
-      /*   
-    
-    myLibrary.forEach(book => {
-      console.log(book.title);
-
-      // create new book
-      const newBook = document.createElement("div");
-      newBook.classList.add('book');
-
-      // Add title to book-----------------------------------
-      // create h4 inside book
-      const h4 = document.createElement("h4");
-      h4.classList.add('title');
-      newBook.appendChild(h4);
-
-      // create text for book
-      const newBookTitle = document.createTextNode(bookTitle);
-
-      // add title to book
-      h4.appendChild(newBookTitle);
-
-      // Add author to book ---------------------------------
-      // create span author inside book
-      const spanAuthor = document.createElement("span");
-      spanAuthor.classList.add('author');
-      newBook.appendChild(spanAuthor);
-
-      // create author text for book
-      const newBookAuthor = document.createTextNode(bookAuthor);
-
-      // add author to book
-      spanAuthor.appendChild(newBookAuthor);
-
-      // Add pages to book ---------------------------------
-      // create span pages inside book
-      const spanPages = document.createElement("span");
-      spanPages.classList.add('pages');
-      newBook.appendChild(spanPages);
-
-      // create author text for book
-      const newBookPages = document.createTextNode(bookPages + `pgs`);
-
-      // add author to book
-      spanPages.appendChild(newBookPages);
-
-      // add book to bookshelf
-      bookshelf.append(newBook);
-
-    });
-*/
+function removeAllBooks() {
+  console.log("It's working!!!");
+  while (bookshelf.firstChild) {
+    bookshelf.firstChild.remove();
+  }
+}
