@@ -21,15 +21,38 @@ window.onload = function () {
       bookPages = book.pages;
       bookRead = book.read;
       createBook(book);
-      /*
-      // Filter books unread
-      if (bookRead === true) {
-        createBook(book);
-      }*/
     });
   }
 
   displayBooks();
+
+  function filterBooksUnread() {
+    removeAllBooks();
+    // Filter books unread
+    myLibrary.forEach((book) => {
+      bookTitle = book.title;
+      bookAuthor = book.author;
+      bookPages = book.pages;
+      bookRead = book.read;
+      if (bookRead === false) {
+        createBook(book);
+      }
+    });
+  }
+
+  function filterBooksRead() {
+    removeAllBooks();
+    // Filter books unread
+    myLibrary.forEach((book) => {
+      bookTitle = book.title;
+      bookAuthor = book.author;
+      bookPages = book.pages;
+      bookRead = book.read;
+      if (bookRead === true) {
+        createBook(book);
+      }
+    });
+  }
 
   function sortAlpha() {
     myLibrary.sort(function (a, b) {
@@ -89,7 +112,7 @@ window.onload = function () {
       bookTitle = $title.value;
       bookAuthor = $author.value;
       bookPages = $pages.value;
-      bookRead = $read.value;
+      bookRead = $read.checked;
 
       // check if book exists in library
       const isFound = myLibrary.find(
@@ -104,7 +127,6 @@ window.onload = function () {
         addBookToLibrary(addedBook);
         console.log("I added the book");
         createBook(addedBook);
-        logBookArray();
       }
     });
 
