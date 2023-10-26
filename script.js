@@ -33,45 +33,43 @@ window.onload = function () {
 
   function sortAlpha() {
     myLibrary.sort(function (a, b) {
-        if (a.title < b.title) {
-          return -1;
-        }
-        if (a.title > b.title) {
-          return 1;
-        }
-        return 0;
-      });
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
   }
-  
+
   function sortReverseAlpha() {
     myLibrary.sort(function (a, b) {
-        if (a.title > b.title) {
-          return -1;
-        }
-        if (a.title < b.title) {
-          return 1;
-        }
-        return 0;
-      });
+      if (a.title > b.title) {
+        return -1;
+      }
+      if (a.title < b.title) {
+        return 1;
+      }
+      return 0;
+    });
   }
-  
+
   // SORT LIBRARY ARRAY----------------------------------------------
   let sort = document.getElementById("sort");
 
   sort.addEventListener("change", function () {
     if (sort.value == "aToZ") {
-      sortAlpha();      
+      sortAlpha();
     } else if (sort.value == "zToA") {
       console.log("No sort Z to A");
       sortReverseAlpha();
-      
     } else if (sort.value == "dateAdded") {
       console.log("hello date added was today");
       myLibrary.sort();
     }
     removeAllBooks();
     displayBooks();
-    console.log(myLibrary);
   });
 
   // FORM CONTROLS--------------------------------------------------------
@@ -131,6 +129,7 @@ window.onload = function () {
       let thisBookCard = e.target.parentElement;
       bookshelf.removeChild(thisBookCard);
       console.log(myLibrary);
+      checkIfEmpty();
     });
   }
 
@@ -267,5 +266,22 @@ function removeAllBooks() {
   console.log("It's working!!!");
   while (bookshelf.firstChild) {
     bookshelf.firstChild.remove();
+  }
+}
+
+function checkIfEmpty() {
+  if (myLibrary.length === 0) {
+    let p = document.createElement("p");
+    p.classList.add("p");
+    bookshelf.appendChild(p);
+
+    // create author text for book
+    let text = document.createTextNode(
+      "No books found. Add a book to your library."
+    );
+
+    // add author to book
+    p.appendChild(text);
+    console.log("Ahh no books!");
   }
 }
