@@ -16,7 +16,7 @@
     grid-template-rows: 1fr 10fr 1fr;
     background: rgb(64, 27, 8);
     padding-right: 15px;
-  }
+}
 
 /* LEFT SIDEBAR*/
 
@@ -26,7 +26,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
-  }
+}
 
 .nav {
     padding-left: 25px;
@@ -52,38 +52,39 @@
     background-color: rgb(116, 20, 20);
 }
 
-
 /* RIGHT SIDEBAR DISPLAY AND ADD NEW BOOK */
 
 .sidebar:last-child {
     padding: 20px;
-    border: 1px solid white;
-  }
-  
+    /*border: 1px solid white;*/
+}
+
+/*
   .sidebar:last-child div {
     border: 2px solid red;
   }
-
-.display, .addBook {
+  */
+.display,
+.addBook {
     text-align: center;
-  }
-  
-  .sidebar img {
+}
+
+.sidebar img {
     width: 100px;
     height: 100px;
     border: 1px solid white;
     margin: 10px;
-  }
-  
-  input {
+}
+
+input {
     width: 80%;
     margin: 5px;
     background: brown;
     color: white;
     text-shadow: none;
-  }
-  
-  form button {
+}
+
+form button {
     color: black;
     background: linear-gradient(tan, brown);
     padding: 5px 10px;
@@ -91,7 +92,7 @@
     border-radius: 30px;
     margin-top: 10px;
     text-shadow: none;
-  }
+}
 
 /* HEADER, BOOKSHELF, AND FOOTER */
 
@@ -125,11 +126,11 @@
     box-shadow: inset 0px 8px 15px 10px rgba(0, 0, 0, 0.45);
     background-attachment: scroll;
     /*  --spacing: 3rem;
-    line-height: var(--spacing);
-    background-image: repeating-linear-gradient(
-      brown 0px var(--spacing),
-      blue 0px calc(var(--spacing) * 5)
-    );*/
+      line-height: var(--spacing);
+      background-image: repeating-linear-gradient(
+        brown 0px var(--spacing),
+        blue 0px calc(var(--spacing) * 5)
+      );*/
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-template-rows: repeat(6, 1fr);
@@ -138,7 +139,6 @@
     place-items: center;
     padding: 0px 2em;
 }
-
 
 .book {
     width: 4rem;
@@ -153,7 +153,7 @@
     border-left: 10px outset #852222;
     box-shadow: 2px 2px 3px black;
 
-    transition: all .2s ease-in-out; 
+    transition: all 0.2s ease-in-out;
 
     display: flex;
     flex-direction: column;
@@ -193,14 +193,15 @@
 }
 
 .bookCard .delete:hover {
-    text-shadow:  0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #49ff18,
+        0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
     transform: scale(1.2);
-    transition: all .2s ease-in-out; 
+    transition: all 0.2s ease-in-out;
 }
 
 .bookCard .read {
     background: linear-gradient(bisque, rgb(44, 138, 21));
-    color:black;
+    color: black;
     margin-top: 10px;
     border-radius: 10px;
     padding: 5px 8px;
@@ -210,7 +211,7 @@
 }
 
 .bookCard .unread {
-    background: linear-gradient(bisque, red);;
+    background: linear-gradient(bisque, red);
     color: black;
     margin-top: 10px;
     border-radius: 10px;
@@ -232,7 +233,7 @@
     margin-top: -5px;
 }
 
-.footer,
+.footer, 
 .sidebar,
 .header,
 .bookshelf {

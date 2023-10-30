@@ -7,7 +7,12 @@ window.onload = function () {
   const bookshelf = document.getElementById("bookshelf");
 
   const book = document.querySelectorAll(".book");
-  const $displayBook = document.querySelector("#displayBook");
+
+  let display = document.querySelector("#display");
+  let displayBook = document.querySelector("#displayBook");
+  let displayTitle = document.querySelector("#displayTitle");
+  let displayAuthor = document.querySelector("#displayAuthor");
+  let displayPages = document.querySelector("#displayPages");
 
   let bookTitle;
   let bookAuthor;
@@ -78,7 +83,7 @@ window.onload = function () {
     });
   }
 
-  // SORT LIBRARY ARRAY----------------------------------------------
+  // SORT LIBRARY ARRAY----------
   let sort = document.getElementById("sort");
 
   sort.addEventListener("change", function () {
@@ -95,7 +100,7 @@ window.onload = function () {
     displayBooks();
   });
 
-  // FORM CONTROLS--------------------------------------------------------
+  // FORM CONTROLS--------------------------------------
   const $form = document
     .querySelector("form")
     .addEventListener("submit", (e) => {
@@ -198,32 +203,50 @@ window.onload = function () {
 
     // add book to book card
     bookCard.appendChild(newBook);
+
+    newBook.addEventListener("click", (e) => {
+      displayTitle.innerHTML = title.innerHTML;
+      displayAuthor.innerHTML = spanAuthor.innerHTML;
+      displayPages.innerHTML = spanPages.innerHTML;
+
+      console.log(display);
+    });
   }
 
   function createReadButton(book) {
     //--------------CREATED READ BUTTON----------------------
+    let index = myLibrary.indexOf(book);
+    let bookIndex = myLibrary[index];
+    let bookReadStatus = myLibrary[index].read;
 
     const readBtn = document.createElement("button");
     // set initial book status
-    if (bookRead === false) {
+    if (bookReadStatus === false) {
       readBtn.classList.add("unread");
       readBtn.innerHTML = "Unread";
-      bookRead = false;
+      myLibrary[index].read = false;
     } else {
       readBtn.classList.add("read");
       readBtn.innerHTML = "Read";
+      myLibrary[index].read = true;
     }
 
     bookCard.appendChild(readBtn);
 
     readBtn.addEventListener("click", (e) => {
+      console.log(bookIndex);
+
       console.log("I am reading " + book.title);
-      if (bookRead === false) {
+      if (bookReadStatus === false) {
         bookRead = true;
-        console.log(bookRead);
-      } else if (bookRead == true) {
+        myLibrary[index].read = true;
+        console.log("Read Status: " + bookReadStatus);
+        console.log(bookIndex);
+      } else if (bookReadStatus === true) {
         bookRead = false;
-        console.log(bookRead);
+        myLibrary[index].read = false;
+        console.log("Read Status: " + bookReadStatus);
+        console.log(bookIndex);
       }
       readBtn.classList.toggle("read");
       readBtn.classList.toggle("unread");
