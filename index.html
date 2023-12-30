@@ -13,13 +13,13 @@
 <body>
   <div class="container">
     <div class="sidebar">
-      <div class="nav">
+      <div class="nav engraved">
         <h1>My Library</h1>
         <div class="owned">
           <ul>
-            <li><a href="#" class="all">📚 All Books</a></li>
-            <li><a href="#" class="current">💭 I'm Reading</a></li>
-            <li><a href="#" class="read">📕 I've Read</a></li>
+            <li><a href="#" class="all"  id="showBooksAll">📚 All Books</a></li>
+            <li><a href="#" class="current" id="showBooksUnread">💭 Unread</a></li>
+            <li><a class="read" id="showBooksRead">📕 Read</a></li>
           </ul>
         </div>
         <div class="saved">
@@ -30,75 +30,25 @@
         </div>
       </div>
     </div>
-    <div class="header">
-      <div class="view">View</div>
+    <div class="header engraved">
+      <h4>Sort Library:</h4>
       <select name="sort" id="sort" class="sort">
+        <option value="none">-------</option>
         <option value="aToZ">A to Z</option>
         <option value="zToA">Z to A</option>
-        <option value="dateAdded">Date Added</option>
       </select>
-      <div class="navigate">Navigate</div>
     </div>
   
-    <div class="bookshelf" id="bookshelf">
-      <!--
-    <div class="bookCard">
-        <button class="delete">x</button>
-        <div class="book">
-          <h4 class="title">Book1</h4>
-          <span class="author">by Author</span>
-          <span class="pages">1,324 pgs</span>
-        </div>
-        <button class="read">Read</button>
-      </div>
+    <div class="bookshelf" id="bookshelf"></div>
   
-      <div class="bookCard">
-        <button class="delete">x</button>
-        <div class="book">
-          <h4 class="title">Book2</h4>
-          <span class="author">by Author</span>
-          <span class="pages">1,324 pgs</span>
-        </div>
-        <button class="unread">Unread</button>
-      </div>
-  
-      <div class="bookCard">
-        <button class="delete">x</button>
-        <div class="book">
-          <h4 class="title">Book1</h4>
-          <span class="author">by Author</span>
-          <span class="pages">1,324 pgs</span>
-        </div>
-        <button class="read">Read</button>
-      </div>
-  
-            
-            <div class="book">Book4</div>
-            <div class="book">Book5</div>
-            <div class="book">Book6</div>
-        
-            <div class="book">Book7</div>
-            <div class="book">Book8</div>
-            <div class="book">Book9</div>
-        
-            <div class="book">Book10</div>
-            <div class="book">Book11</div>
-            <div class="book">Book12</div>
-        
-            <div class="book">Book13</div>
-            <div class="book">Book14</div>
-            <div class="book">Book15</div>
-      -->
-    </div>
-  
-    <div class="footer">
-      <p>This is my footer.</p>
+    <div class="footer engraved">
+      <a href="https://www.github.io/rinarasia">®inarasia</a>
     </div>
   
     <div class="sidebar">
       <div id="display" class="display">
-        <h2 id="displayBook">Display</h2>
-        <p>Click on a book to display its details</p>
+        <h2 class="engraved">Display Book</h2>
+        <p class="engraved">Click on a book to display its details</p>
         <div class="bookCard">
           <div class="book">
             <h4 class="title" id="displayTitle">A Story</h4>
@@ -110,21 +60,25 @@
       </div>
       
       <div class="addBook">
-        <h2>Add Book</h2>
-        <img src="https://static.thenounproject.com/png/261694-200.png" alt="">
+        <h2 class="engraved">Add Book</h2>
+        <div class="book">
+          <h4 class="title" id="newTitle"></h4>
+          <span class="author" id="newAuthor"></span>
+          <span class="pages" id="newPages"></span>
+        </div>
   
         <form action="">
   
-          <label for="title">Title:</label>
-          <input type="text" id="title"></input>
+          <label for="title" class="engraved">Title:</label>
+          <input  oninput="displayText()" type="text" id="title" placeholder="Book Title" required></input>
   
-          <label for="author">Author:</label>
-          <input type="text" id="author"></input>
+          <label for="author" class="engraved">Author:</label>
+          <input  oninput="displayText()" type="text" id="author" placeholder="Book Author" required></input>
   
-          <label for="pages">Pages:</label>
-          <input type="number" id="pages"></input>
+          <label for="pages" class="engraved">Pages:</label>
+          <input  oninput="displayText()" type="number" id="pages" placeholder="No. of Pages" required></input>
   
-          <label for="read">Read:</label>
+          <label for="read" class="engraved">Read:</label>
           <input type="checkbox" name="read" id="read">
   
           <button type="submit" value="Submit">Add to Library</button>

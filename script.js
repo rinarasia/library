@@ -1,16 +1,25 @@
 window.onload = function () {
   const bookshelf = document.getElementById("bookshelf");
 
-  //const book = document.querySelectorAll(".book");
-
   let display = document.querySelector("#display");
   let displayBook = document.querySelector("#displayBook");
   let displayTitle = document.querySelector("#displayTitle");
   let displayAuthor = document.querySelector("#displayAuthor");
   let displayPages = document.querySelector("#displayPages");
   let displayRead = document.querySelector("#displayRead");  
+  
+  // form input details
+  const title = document.querySelector("#title");
+  const author = document.querySelector("#author");
+  const pages = document.querySelector("#pages");
+  const read = document.querySelector("#read");
 
-
+  // new book details
+  let newTitle = document.querySelector("#newTitle");
+  let newAuthor = document.querySelector("#newAuthor");
+  let newPages = document.querySelector("#newPages");
+  
+  
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -302,28 +311,52 @@ class Library {
   });
   }
   
-  filterBooksUnread() {
-    this.library.removeAllBooks();
-    console.log(book.read);
-    this.library.forEach((book) => {
-      this.createBook(book);
+  test() {
+    let filterRead = document.getElementById("showBooksRead");
+    
+    filterRead.addEventListener("click", function() {
+      myLibrary.filterBooksRead();
     });
-    /*
-    // Filter books unread
-    myLibrary.forEach((book) => {
-      bookTitle = book.title;
-      bookAuthor = book.author;
-      bookPages = book.pages;
-      bookRead = book.read;
-      if (bookRead === false) {
-        createBook(book);
+    
+    let filterUnread = document.getElementById("showBooksUnread");
+    
+    filterUnread.addEventListener("click", function() {
+      myLibrary.filterBooksUnread();
+    });
+    
+    let filterShowAll = document.getElementById("showBooksAll");
+    
+    filterShowAll.addEventListener("click", function() {
+      myLibrary.removeAllBooks();
+      myLibrary.displayBooks();
+      console.log("Hello");
+    })
+  }
+  
+  filterBooksUnread() {
+    myLibrary.removeAllBooks();
+    //console.log(book.read);
+    this.library.forEach((book) => {
+      if(book.read === false) {
+        this.createBook(book);
       }
-    });*/
+    });
+  }
+  
+  filterBooksRead() {
+    myLibrary.removeAllBooks();
+    //console.log(book.read);
+    this.library.forEach((book) => {
+      if(book.read === true) {
+        this.createBook(book);
+      }
+    });
   }
 
 }
   
 const myLibrary = new Library();
+
 
 //console.log(myLibrary.checkIfEmpty);
 let bookFive = new Book("Frog", "J.R.R.", 1342, false);
@@ -332,18 +365,14 @@ let bookFive = new Book("Frog", "J.R.R.", 1342, false);
 //myLibrary.checkLibrary(bookFive);
 myLibrary.firstBooks();
 myLibrary.sortLibrary();
+myLibrary.test();
 //myLibrary.displayBooks();
 //myLibrary.checkLibrary(bookFive);
-//console.log(myLibrary.library);
+//myLibrary.filterBooksUnread();
   
-  const form = document.querySelector("form").addEventListener("submit", (e) => {
+ const form = document.querySelector("form").addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const title = document.querySelector("#title");
-      const author = document.querySelector("#author");
-      const pages = document.querySelector("#pages");
-      const read = document.querySelector("#read");
-    
       // save new book
       const addedBook = new Book(
         title.value,
@@ -355,4 +384,16 @@ myLibrary.sortLibrary();
       myLibrary.checkLibrary(addedBook);
  });
   
+}
+
+// write text on new book
+function displayText() {
+  newTitle.innerHTML = title.value;
+  newAuthor.innerHTML = author.value;
+  newPages.innerHTML = pages.value;
+}
+
+function filterBooks() {
+  myLibrary.removeAllBooks();
+  console.log("Hello");
 }

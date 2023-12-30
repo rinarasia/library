@@ -1,8 +1,11 @@
 * {
     margin: 0;
     padding: 0;
+  }
+  
+  .engraved {
     color: tan;
-    text-shadow: 0 1px white;
+    text-shadow: 0 0.8px white;
   }
   
   .container {
@@ -33,7 +36,8 @@
     padding-top: 25px;
   }
   
-  .nav a {
+  .nav a, .footer a {
+    color: inherit;
     text-decoration: none;
   }
   
@@ -65,7 +69,16 @@
   */
   .display,
   .addBook {
+    color: white;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    align-items: center;
+  }
+  
+  
+  .sidebar .book:hover {
+    transform: none;
   }
   
   .sidebar img {
@@ -78,14 +91,14 @@
   input {
     width: 80%;
     margin: 5px;
-    background: brown;
-    color: white;
+    background: #FCDBC9;
+    color: black;
     text-shadow: none;
   }
   
   form button {
     color: black;
-    background: linear-gradient(tan, brown);
+    background: linear-gradient(#DCEEFC, #326895);
     padding: 5px 10px;
     border: none;
     border-radius: 30px;
@@ -105,10 +118,9 @@
     padding-right: 15px;
   }
   
-  .view,
-  .sort,
-  .navigate {
+  .sort {
     border: 1px solid black;
+    width: 100px;
   }
   
   .bookshelf {
@@ -130,7 +142,7 @@
       );*/
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 1rem;
     overflow: auto;
     place-items: center;
@@ -157,6 +169,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 5px;
+    
+    text-transform: capitalize;
   }
   
   .book:hover {
@@ -170,6 +184,7 @@
     align-items: center;
     text-align: center;
     margin-top: 1.5rem;
+    color: white;
   }
   
   .bookCard .delete {
@@ -190,8 +205,8 @@
   }
   
   .bookCard .delete:hover {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #49ff18,
-      0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px blue,
+      0 0 30px blue, 0 0 40px blue, 0 0 55px blue, 0 0 75px blue;
     transform: scale(1.2);
     transition: all 0.2s ease-in-out;
   }
@@ -200,7 +215,7 @@
     background: linear-gradient(bisque, rgb(44, 138, 21));
     color: black;
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 50px;
     padding: 5px 8px;
     font-size: 12px;
     text-shadow: none;
@@ -211,11 +226,21 @@
     background: linear-gradient(bisque, red);
     color: black;
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 50px;
     padding: 5px 8px;
     font-size: 12px;
     text-shadow: none;
     border: none;
+  }
+  
+  .bookshelf .book, button, .sidebar a {
+    cursor: pointer;
+  }
+  
+  button:hover {
+    /*box-shadow: 0px 2px 3px 0.1px white;*/
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
   }
   
   .footer {
@@ -235,4 +260,5 @@
   .header,
   .bookshelf {
     /*border: 1px solid white;*/
-  }  
+  }
+  
