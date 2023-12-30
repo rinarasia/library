@@ -3,9 +3,9 @@
     padding: 0;
     color: tan;
     text-shadow: 0 1px white;
-}
-
-.container {
+  }
+  
+  .container {
     min-width: 950px;
     min-height: 780px;
     width: 90vw;
@@ -16,75 +16,74 @@
     grid-template-rows: 1fr 10fr 1fr;
     background: rgb(64, 27, 8);
     padding-right: 15px;
-}
-
-/* LEFT SIDEBAR*/
-
-.sidebar {
+  }
+  
+  /* LEFT SIDEBAR*/
+  
+  .sidebar {
     background-image: url("https://cdn.tutsplus.com/cdn-cgi/image/width=600/psd/uploads/legacy/0538_Seamless_Wood/final.jpg");
     grid-row: 1/4;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
-}
-
-.nav {
+  }
+  
+  .nav {
     padding-left: 25px;
     padding-top: 25px;
-}
-
-.nav a {
+  }
+  
+  .nav a {
     text-decoration: none;
-}
-
-.nav ul {
+  }
+  
+  .nav ul {
     list-style: none;
     margin-top: 15px;
-}
-
-.owned li,
-.saved li {
+  }
+  
+  .owned li,
+  .saved li {
     padding-top: 10px;
-}
-
-.owned li:hover,
-.saved li:hover {
+  }
+  
+  .owned li:hover,
+  .saved li:hover {
     background-color: rgb(116, 20, 20);
-}
-
-/* RIGHT SIDEBAR DISPLAY AND ADD NEW BOOK */
-
-.sidebar:last-child {
+  }
+  
+  /* RIGHT SIDEBAR DISPLAY AND ADD NEW BOOK */
+  
+  .sidebar:last-child {
     padding: 20px;
     /*border: 1px solid white;*/
-}
-
-/*
+  }
+  /*
   .sidebar:last-child div {
     border: 2px solid red;
   }
   */
-.display,
-.addBook {
+  .display,
+  .addBook {
     text-align: center;
-}
-
-.sidebar img {
+  }
+  
+  .sidebar img {
     width: 100px;
     height: 100px;
     border: 1px solid white;
     margin: 10px;
-}
-
-input {
+  }
+  
+  input {
     width: 80%;
     margin: 5px;
     background: brown;
     color: white;
     text-shadow: none;
-}
-
-form button {
+  }
+  
+  form button {
     color: black;
     background: linear-gradient(tan, brown);
     padding: 5px 10px;
@@ -92,11 +91,11 @@ form button {
     border-radius: 30px;
     margin-top: 10px;
     text-shadow: none;
-}
-
-/* HEADER, BOOKSHELF, AND FOOTER */
-
-.header {
+  }
+  
+  /* HEADER, BOOKSHELF, AND FOOTER */
+  
+  .header {
     background-image: url("https://cdn.tutsplus.com/cdn-cgi/image/width=600/psd/uploads/legacy/0538_Seamless_Wood/final.jpg");
     grid-row: 1 / 2;
     display: grid;
@@ -104,25 +103,23 @@ form button {
     justify-items: end;
     align-items: center;
     padding-right: 15px;
-}
-
-.view,
-.sort,
-.navigate {
+  }
+  
+  .view,
+  .sort,
+  .navigate {
     border: 1px solid black;
-}
-
-.bookshelf {
+  }
+  
+  .bookshelf {
     min-width: 500px;
     grid-row: 2/3;
-    background-image: repeating-linear-gradient(to bottom,
-            rgb(64, 27, 8) 0%,
-            /* top of shelf, darker */
-            rgb(148, 93, 57) 9%,
-            /* middle of shelf */
-            rgb(104, 59, 37) 35%
-            /* bottom of shelf, lighter */
-        );
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgb(64, 27, 8) 0%,
+      /* top of shelf, darker */ rgb(148, 93, 57) 9%,
+      /* middle of shelf */ rgb(104, 59, 37) 35% /* bottom of shelf, lighter */
+    );
     box-shadow: inset 0px 8px 15px 10px rgba(0, 0, 0, 0.45);
     background-attachment: scroll;
     /*  --spacing: 3rem;
@@ -138,9 +135,9 @@ form button {
     overflow: auto;
     place-items: center;
     padding: 0px 2em;
-}
-
-.book {
+  }
+  
+  .book {
     width: 4rem;
     height: 6rem;
     text-align: center;
@@ -152,30 +149,30 @@ form button {
     border-bottom: 7px solid white;
     border-left: 10px outset #852222;
     box-shadow: 2px 2px 3px black;
-
+  
     transition: all 0.2s ease-in-out;
-
+  
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 10px 5px;
-}
-
-.book:hover {
+  }
+  
+  .book:hover {
     transform: scale(1.5) skew(3deg, 0deg);
-}
-
-.bookCard {
+  }
+  
+  .bookCard {
     display: flex;
     flex-direction: column;
     justify-items: baseline;
     align-items: center;
     text-align: center;
     margin-top: 1.5rem;
-}
-
-.bookCard .delete {
+  }
+  
+  .bookCard .delete {
     align-self: flex-end;
     color: black;
     font-size: 16px;
@@ -185,21 +182,21 @@ form button {
     text-shadow: none;
     padding: 0px 5px;
     margin-bottom: 8px;
-}
-
-.bookCard button {
+  }
+  
+  .bookCard button {
     border-radius: 30px;
     border: 1px solid black;
-}
-
-.bookCard .delete:hover {
+  }
+  
+  .bookCard .delete:hover {
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #49ff18,
-        0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
+      0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
     transform: scale(1.2);
     transition: all 0.2s ease-in-out;
-}
-
-.bookCard .read {
+  }
+  
+  .bookCard .read {
     background: linear-gradient(bisque, rgb(44, 138, 21));
     color: black;
     margin-top: 10px;
@@ -208,9 +205,9 @@ form button {
     font-size: 12px;
     text-shadow: none;
     border: none;
-}
-
-.bookCard .unread {
+  }
+  
+  .bookCard .unread {
     background: linear-gradient(bisque, red);
     color: black;
     margin-top: 10px;
@@ -219,9 +216,9 @@ form button {
     font-size: 12px;
     text-shadow: none;
     border: none;
-}
-
-.footer {
+  }
+  
+  .footer {
     background-image: url("https://cdn.tutsplus.com/cdn-cgi/image/width=600/psd/uploads/legacy/0538_Seamless_Wood/final.jpg");
     background-repeat: repeat-x;
     grid-row: 3 / 4;
@@ -231,11 +228,11 @@ form button {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     margin-top: -5px;
-}
-
-.footer, 
-.sidebar,
-.header,
-.bookshelf {
+  }
+  
+  .footer,
+  .sidebar,
+  .header,
+  .bookshelf {
     /*border: 1px solid white;*/
-}
+  }  

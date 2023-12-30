@@ -1,169 +1,117 @@
 window.onload = function () {
-  const $title = document.querySelector("#title");
-  const $author = document.querySelector("#author");
-  const $pages = document.querySelector("#pages");
-  const $read = document.querySelector("#read");
-
   const bookshelf = document.getElementById("bookshelf");
 
-  const book = document.querySelectorAll(".book");
+  //const book = document.querySelectorAll(".book");
 
   let display = document.querySelector("#display");
   let displayBook = document.querySelector("#displayBook");
   let displayTitle = document.querySelector("#displayTitle");
   let displayAuthor = document.querySelector("#displayAuthor");
   let displayPages = document.querySelector("#displayPages");
+  let displayRead = document.querySelector("#displayRead");  
 
-  let bookTitle;
-  let bookAuthor;
-  let bookPages;
-  let bookRead;
 
-  function displayBooks() {
-    myLibrary.forEach((book) => {
-      bookTitle = book.title;
-      bookAuthor = book.author;
-      bookPages = book.pages;
-      bookRead = book.read;
-      createBook(book);
-    });
-  }
-
-  displayBooks();
-
-  function filterBooksUnread() {
-    removeAllBooks();
-    // Filter books unread
-    myLibrary.forEach((book) => {
-      bookTitle = book.title;
-      bookAuthor = book.author;
-      bookPages = book.pages;
-      bookRead = book.read;
-      if (bookRead === false) {
-        createBook(book);
-      }
-    });
-  }
-
-  function filterBooksRead() {
-    removeAllBooks();
-    // Filter books unread
-    myLibrary.forEach((book) => {
-      bookTitle = book.title;
-      bookAuthor = book.author;
-      bookPages = book.pages;
-      bookRead = book.read;
-      if (bookRead === true) {
-        createBook(book);
-      }
-    });
-  }
-
-  function sortAlpha() {
-    myLibrary.sort(function (a, b) {
-      if (a.title < b.title) {
-        return -1;
-      }
-      if (a.title > b.title) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-
-  function sortReverseAlpha() {
-    myLibrary.sort(function (a, b) {
-      if (a.title > b.title) {
-        return -1;
-      }
-      if (a.title < b.title) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-
-  // SORT LIBRARY ARRAY----------
-  let sort = document.getElementById("sort");
-
-  sort.addEventListener("change", function () {
-    if (sort.value == "aToZ") {
-      sortAlpha();
-    } else if (sort.value == "zToA") {
-      console.log("No sort Z to A");
-      sortReverseAlpha();
-    } else if (sort.value == "dateAdded") {
-      console.log("hello date added was today");
-      myLibrary.sort();
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.info = function () {
+      return title + " by " + author + ", " + pages + " Pages" + read;
     }
-    removeAllBooks();
-    displayBooks();
-  });
+  }
+}
+  
+  
 
-  // FORM CONTROLS--------------------------------------
-  const $form = document
-    .querySelector("form")
-    .addEventListener("submit", (e) => {
-      e.preventDefault();
+class Library {
+  constructor() {
+    this.library = [];
+  }
 
-      // save new book
-      const addedBook = new Book(
-        $title.value,
-        $author.value,
-        $pages.value,
-        $read.checked
-      );
-
-      bookTitle = $title.value;
-      bookAuthor = $author.value;
-      bookPages = $pages.value;
-      bookRead = $read.checked;
-
-      // check if book exists in library
-      const isFound = myLibrary.find(
-        (x) => x.title.toLowerCase() === bookTitle.toLowerCase()
-      );
-
-      console.log(isFound);
-
-      if (isFound) {
-        console.log("Book was found!!!");
-      } else {
-        addBookToLibrary(addedBook);
-        console.log("I added the book");
-        createBook(addedBook);
-      }
+  addBook(book) {
+     this.library.push(book)
+  }
+  
+  firstBooks = () => {
+        myLibrary.addBook(new Book("Frog", "Fred Frog", 1342, false))
+        myLibrary.addBook(new Book("Apple", "Amelia Apple", 453, true))
+        myLibrary.addBook(new Book("Cats", "Cathy Cats", 159, false))
+        myLibrary.displayBooks();
+  }
+  
+  displayBooks() {
+    this.library.forEach((book) => {
+      this.createBook(book);
     });
-
-  function createDeleteBtn() {
+  }
+  
+  checkLibrary(book) {
+    //console.log(myLibrary.library);
+    const isFound = myLibrary.library.find((x) => x.title.toLowerCase() === book.title.toLowerCase());
+    
+    if(isFound){
+      console.log("You added that already!");
+      console.log(isFound);
+      //myLibrary.addBook(book);      
+    } else {
+      // add book to library array
+      myLibrary.addBook(book);
+      myLibrary.createBook(book);
+    }
+    //console.log(book);
+    
+  }
+  
+  createBook(book) {
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("bookCard");
+    
+    
+    //this.checkLibrary(book)
     // create delete button
-    deleteBtn = document.createElement("button");
+    this.createDeleteBtn(book, bookCard);
+
+    // create book cover
+    this.createBookCover(book, bookCard);
+
+    // create read button
+    this.createReadButton(book, bookCard);
+
+    //--------------ADD BOOKCARD TO BOOKSHELF----------------
+    // add book to bookshelf
+    bookshelf.appendChild(bookCard);
+  }
+  
+  createDeleteBtn(book, bookCard) {
+    // create delete button
+    const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete");
     const x = document.createTextNode("x");
     deleteBtn.appendChild(x);
 
     // add delete button to bookshelf
-    bookCard.appendChild(deleteBtn);
-  }
-
-  function addDeleteFunction(book) {
+    bookCard.appendChild(deleteBtn);    
+    
     // add delete function
     deleteBtn.addEventListener("click", (e) => {
-      console.log("Are you sure you want to delete " + myLibrary.indexOf(book));
-      let index = myLibrary.indexOf(book);
-      myLibrary.splice(index, 1);
+      console.log("Are you sure you want to delete " + this.library.indexOf(book));
+      let index = this.library.indexOf(book);
+      
+      this.library.splice(index, 1);
 
       let thisBookCard = e.target.parentElement;
       bookshelf.removeChild(thisBookCard);
-      console.log(myLibrary);
-      checkIfEmpty();
+      //checkIfEmpty();
     });
+    
   }
-
-  function createBookCover() {
+  
+  createBookCover(book, bookCard) {
     //----------------CREATE NEW BOOK---------------------
 
-    newBook = document.createElement("div");
+    const newBook = document.createElement("div");
     newBook.classList.add("book");
 
     // BOOK TITLE
@@ -172,8 +120,8 @@ window.onload = function () {
     newBook.appendChild(title);
 
     // BOOK TITLE TEXT
-    const newBookTitle = document.createTextNode(bookTitle);
-
+    const newBookTitle = document.createTextNode(book.title);
+    
     // add title to book
     title.appendChild(newBookTitle);
 
@@ -184,7 +132,7 @@ window.onload = function () {
     newBook.appendChild(spanAuthor);
 
     // create author text for book
-    let textAuthor = document.createTextNode(bookAuthor);
+    let textAuthor = document.createTextNode(book.author);
 
     // add author to book
     spanAuthor.appendChild(textAuthor);
@@ -196,66 +144,85 @@ window.onload = function () {
     newBook.appendChild(spanPages);
 
     // create pages text for book
-    let textPages = document.createTextNode(bookPages + `pgs`);
+    let textPages = document.createTextNode(book.pages + `pgs`);
 
     // add author to book
     spanPages.appendChild(textPages);
 
     // add book to book card
     bookCard.appendChild(newBook);
-
+/*
+    // display book on sidebar on click
     newBook.addEventListener("click", (e) => {
-      displayTitle.innerHTML = title.innerHTML;
-      displayAuthor.innerHTML = spanAuthor.innerHTML;
-      displayPages.innerHTML = spanPages.innerHTML;
+      displayTitle.innerHTML = book.title;
+      displayAuthor.innerHTML = book.author;
+      displayPages.innerHTML = book.pages + " pgs";
+      //splayRead.innerHTML = book.read;
 
-      console.log(display);
+      if(book.read === false) {
+        displayRead.innerHTML = "Unread";
+        displayRead.classList.remove("read");
+        displayRead.classList.add("unread");
+        console.log("FALSE");
+      } else if(book.read === true) {
+        displayRead.innerHTML = "Read";
+        displayRead.classList.remove("unread");
+        displayRead.classList.add("read");
+        console.log("TRUE");
+      }
+    //console.log(readBtn.classList);
     });
+    */
   }
-
-  function createReadButton(book) {
+  
+  createReadButton(book, bookCard) {
     //--------------CREATED READ BUTTON----------------------
-    let index = myLibrary.indexOf(book);
-    let bookIndex = myLibrary[index];
-    let bookReadStatus = myLibrary[index].read;
+    let index = this.library.indexOf(book);
+    
+    let bookIndex = this.library[index];
+    let bookReadStatus = this.library[index].read;
 
     const readBtn = document.createElement("button");
     // set initial book status
     if (bookReadStatus === false) {
       readBtn.classList.add("unread");
       readBtn.innerHTML = "Unread";
-      myLibrary[index].read = false;
+      this.library[index].read = false;
     } else {
       readBtn.classList.add("read");
       readBtn.innerHTML = "Read";
-      myLibrary[index].read = true;
+      this.library[index].read = true;
     }
 
     bookCard.appendChild(readBtn);
 
     readBtn.addEventListener("click", (e) => {
-      console.log(bookIndex);
-
       console.log("I am reading " + book.title);
       if (bookReadStatus === false) {
-        bookRead = true;
-        myLibrary[index].read = true;
+        bookReadStatus = true;
+        this.library[index].read = true;
         console.log("Read Status: " + bookReadStatus);
-        console.log(bookIndex);
+        console.log(index);
       } else if (bookReadStatus === true) {
-        bookRead = false;
-        myLibrary[index].read = false;
+        bookReadStatus = false;
+        this.library[index].read = false;
         console.log("Read Status: " + bookReadStatus);
-        console.log(bookIndex);
+        console.log(index);
       }
       readBtn.classList.toggle("read");
       readBtn.classList.toggle("unread");
-      setReadStatus(readBtn);
+      this.setReadStatus(readBtn);
+    });
+    
+    bookCard.addEventListener("click", (e) => {
+      this.showBookOnDisplay(book, readBtn);
     });
   }
 
-  function setReadStatus(readBtn) {
+  // set read status of book (read or unread)
+  setReadStatus(readBtn) {
     let text = readBtn;
+    //console.log(text);
     if (text.innerHTML === "Read") {
       text.innerHTML = "Unread";
     } else {
@@ -263,70 +230,129 @@ window.onload = function () {
     }
   }
 
-  function createBook(book) {
-    bookCard = document.createElement("div");
-    bookCard.classList.add("bookCard");
+  // display book details on sidebar on click
+  showBookOnDisplay(book, readBtn) {
+      displayTitle.innerHTML = book.title;
+      displayAuthor.innerHTML = book.author;
+      displayPages.innerHTML = book.pages + " pgs";
 
-    createDeleteBtn();
-    addDeleteFunction(book);
-
-    createBookCover();
-
-    createReadButton(book);
-
-    //--------------ADD BOOKCARD TO BOOKSHELF----------------
-    // add book to bookshelf
-    bookshelf.appendChild(bookCard);
+      if(book.read === false) {
+        displayRead.innerHTML = readBtn.innerHTML;
+        console.log("FALSE");
+      } else if(book.read === true) {
+        displayRead.innerHTML = readBtn.innerHTML;
+        console.log("TRUE");
+      }
+    displayRead.classList = readBtn.classList;
   }
-};
-
-const myLibrary = [];
-
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
-    return title + " by " + author + ", " + pages + " Pages" + read;
-  };
-}
-
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
-
-const Tolkien = new Book("Tolkien", "J.R.R.", "1342", false);
-// add default books to library
-const bookOne = new Book("Frog", "J.R.R.", "1342", false);
-const bookTwo = new Book("Apple", "J.R.R.", "1342", true);
-const bookThree = new Book("Cats", "J.R.R.", "1342", false);
-
-addBookToLibrary(bookOne);
-addBookToLibrary(bookTwo);
-addBookToLibrary(bookThree);
-addBookToLibrary(Tolkien);
-
-function removeAllBooks() {
-  console.log("It's working!!!");
-  while (bookshelf.firstChild) {
-    bookshelf.firstChild.remove();
+  
+  // remove all books from bookshelf
+  removeAllBooks() {
+    console.log("It's working!!!");
+    while (bookshelf.firstChild) {
+      bookshelf.firstChild.remove();
+      //this.library.pop();
+      //console.log(myLibrary.library);
+    }
   }
-}
-
-function checkIfEmpty() {
-  if (myLibrary.length === 0) {
-    let p = document.createElement("p");
-    p.classList.add("p");
-    bookshelf.appendChild(p);
-
-    // create author text for book
-    let text = document.createTextNode(
-      "No books found. Add a book to your library."
-    );
-
-    // add author to book
-    p.appendChild(text);
-    console.log("Ahh no books!");
+  
+  // sort book titles alphabetically
+  sortAlpha() {
+    this.library.sort(function (a, b) {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
   }
+  
+  // sort book titles reverse alphabetically
+  sortReverseAlpha() {
+    this.library.sort(function (a, b) {
+      if (a.title > b.title) {
+        return -1;
+      }
+      if (a.title < b.title) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  
+  // add sort function
+  sortLibrary() {
+  // SORT LIBRARY ARRAY----------
+  let sort = document.getElementById("sort");
+
+  sort.addEventListener("change", function () {
+    if (sort.value == "aToZ") {
+      myLibrary.sortAlpha();
+    } else if (sort.value == "zToA") {
+      console.log("No sort Z to A");
+      myLibrary.sortReverseAlpha();
+    } else if (sort.value == "dateAdded") {
+      console.log("hello date added was today");
+      myLibrary.library.sort();
+    }
+    myLibrary.removeAllBooks();
+    myLibrary.displayBooks();
+  });
+  }
+  
+  filterBooksUnread() {
+    this.library.removeAllBooks();
+    console.log(book.read);
+    this.library.forEach((book) => {
+      this.createBook(book);
+    });
+    /*
+    // Filter books unread
+    myLibrary.forEach((book) => {
+      bookTitle = book.title;
+      bookAuthor = book.author;
+      bookPages = book.pages;
+      bookRead = book.read;
+      if (bookRead === false) {
+        createBook(book);
+      }
+    });*/
+  }
+
+}
+  
+const myLibrary = new Library();
+
+//console.log(myLibrary.checkIfEmpty);
+let bookFive = new Book("Frog", "J.R.R.", 1342, false);
+
+ 
+//myLibrary.checkLibrary(bookFive);
+myLibrary.firstBooks();
+myLibrary.sortLibrary();
+//myLibrary.displayBooks();
+//myLibrary.checkLibrary(bookFive);
+//console.log(myLibrary.library);
+  
+  const form = document.querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = document.querySelector("#title");
+      const author = document.querySelector("#author");
+      const pages = document.querySelector("#pages");
+      const read = document.querySelector("#read");
+    
+      // save new book
+      const addedBook = new Book(
+        title.value,
+        author.value,
+        pages.value,
+        read.checked
+      );
+    
+      myLibrary.checkLibrary(addedBook);
+ });
+  
 }
